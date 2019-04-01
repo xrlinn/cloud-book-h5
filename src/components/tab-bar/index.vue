@@ -28,7 +28,7 @@ export default {
   },
   data () {
     return {
-      selected: 'index'
+      selected: this.$route.name
     }
   },
   watch: {
