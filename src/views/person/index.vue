@@ -21,15 +21,35 @@
                 </div>
             </div>
             <div class="header-row2">
-                    <div class="readed">
-                            <font size="4px">24</font>本<br>已读书籍
+                    <div class="collection-item">
+                        <div class="title">
+                            24
+                            <span class="little-title">本</span>
+                        </div>
+                        <div class="msg">
+                            已读书籍
+                        </div>
                     </div>
-                    <div class="collected">
-                            <font size="4px">22</font>本<br>已收藏书籍
+                    <div class="collection-item">
+                        <div class="title">
+                            22
+                            <span class="little-title">本</span>
+                        </div>
+                        <div class="msg">
+                            已收藏书籍
+                        </div>
                     </div>
-                    <div class="like">
-                            <font size="4px">10</font>本<br >喜欢
+                    <div class="collection-item">
+                        <div class="title">
+                            10
+                            <span class="little-title">本</span>
+                        </div>
+                        <div class="msg">
+                            喜欢
+                        </div>
                     </div>
+                    <i class="col-line"></i>
+                    <i class="col-line"></i>
             </div>
         </div>
         <div class="footer">
@@ -88,19 +108,19 @@ export default {
 @import "../../globalCss/px2-rem";
     .header{
 
-        background:#186fc8;
-        height: px-to-rem(350);
+        background:#1658bc;
+        // height: px-to-rem(350);
+        padding: px-to-rem(18);
+        box-shadow: 0 0 2px 2px #1658bc;
         .header-row1 {
             position: relative;
-            padding: 10px 10px;
             display: flex;
             justify-content: space-between;
 
             .header-right{
-                position: relative;
-                top:px-to-rem(18);
-                right:px-to-rem(60);
                 display: flex;
+                justify-content:space-between;
+                align-items: center;
                 img {
                     height: px-to-rem(140);
                     width: px-to-rem(140);
@@ -108,11 +128,8 @@ export default {
                     border-radius: 50%
                 }
                 .icon {
-                    position: absolute;
-                    top: px-to-rem(48);
-                    left: px-to-rem(160);
                     font-weight: 600;
-                    font-size: 24px;
+                    font-size: 18px;
                     color: #fff;
                 }
             }
@@ -135,39 +152,46 @@ export default {
 
         }
         .header-row2 {
-           
+            position: relative;
             display: flex;
             color: #fff;
-            justify-content: space-around;
-            margin-top: 28px;
+            justify-content: space-between;
+            margin-top: 30px;
             text-align: center;
-            div {
-                flex: 1;
-                position: relative;
+            .collection-item {
+                &:nth-child(1){
+                    width: 30%;
+                }
+                &:nth-child(2){
+                    width: 40%;
+                }
+                &:nth-child(3){
+                    width: 30%;
+                }
+                .title{
+                   font-size: 16px;
+                   .little-title{
+                       font-size: 12px;
+                   } 
+                }
+                .msg {
+                    margin-top: 4px;
+                }
             }
-            .readed:after{
-                content: '';
+            .col-line {
                 position: absolute;
-                left: auto;
-                top: auto;
-                bottom: 10px;
-                right: 0;
+                height: 20px;
                 width: 1px;
-                height: 48%;
-                background-color: #fff;
-                box-sizing: border-box
-            }
-            .collected:after{
-                content: '';
-                position: absolute;
-                left: auto;
-                top: auto;
-                bottom: 10px;
-                right: 0;
-                width: 1px;
-                height: 48%;
-                background-color: #fff;
-                box-sizing: border-box
+                background: #eaeaea;
+                top: 50%;
+                transform: translateY(-50%);
+
+                &:nth-child(4){
+                    left: 30%;
+                }
+                &:nth-child(5){
+                    right: 30%;
+                }
             }
         }
     }

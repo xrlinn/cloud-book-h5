@@ -4,4 +4,8 @@ export default {
   getBook: '/book/', // 获取单个图书
   getTitles: '/titles/', // 获取标题目录
   getArticle: '/article/', // 获取一篇文章
+  login: '/login_html', // 登录接口
+  sendCode: '/phoneValidator', // 发送短信验证码
+  register: '/register', // 注册
+  getUserData: '/user', // 获取用户数据
 }

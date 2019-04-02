@@ -25,14 +25,23 @@ const router = new Router({
           meta: {
             title: '个人中心'
           },
-          component: () => import('@/components/tab-bar/person')
+          component: () => import('@/views/person'),   
+        },
+        {
+          path: '/logout',
+          name: 'person',
+          meta: {
+            title: '退出登录'
+          },
+          component: () => import('@/views/logout')
         },
         {
           path: 'learn',
           name: 'learn',
           meta: {
             title: '我的学习'
-          }
+          },
+          component: () => import('@/views/learn')
         }
       ]
     },

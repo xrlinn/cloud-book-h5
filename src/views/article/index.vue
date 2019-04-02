@@ -3,18 +3,21 @@
         <div class="content markdown" :style="{fontSize: fontSize + 'px'}" v-html="html"></div>
         <div class="btns">
             <i class="iconfont icon-prev" @click="handleJump('prev')"></i>
-            <i class="iconfont icon-mulu" @click="isShowTitles=!isShowTitles"></i>
+            <i class="iconfont icon-mulu" @click="showTitles"></i>
             <i class="iconfont icon-zitifangda" @click="handleAdd"></i>
             <i class="iconfont icon-zitisuoxiao" @click="handleReduce"></i>
             <i class="iconfont icon-next1" @click="handleJump('next')"></i>
         </div>
 
-        <div class="titles-wrap" v-show="isShowTitles" @click="isShowTitles=!isShowTitles" >
-            <ul class="titles"  @click.stop >
-                <li v-for="(item, index) in titles" :key="index" class="titles-item" @click="jump(index)" >
-                      {{item.title}}
-                </li>
-            </ul>
+        <div class="titles-wrap" v-show="isShowTitles" @click="hideTitles" >
+            <transition name="slide">
+                <ul class="titles" v-show="isActive" @click.stop >
+                    <li v-for="(item, index) in titles" :key="index" class="titles-item" @click="jump(index)" >
+                          {{item.title}}
+                    </li>
+                </ul>
+            </transition>
+
         </div>
     </div>
 </template>
@@ -125,6 +128,16 @@ export default {
               }
           })
           this.isShowTitles = false
+      },
+      showTitles () {
+          this.isShowTitles = true
+          this.isActive = true
+      },
+      hideTitles () {
+          this.isActive = false
+          setTimeout(() => {
+              this.isShowTitles = false
+          }, 500)
       }
   },
   created () {
@@ -132,14 +145,6 @@ export default {
           this.getTitles()
       })
   },
-  watch: {
-      isShowTitles (val) {
-          this.$nextTick(() => {
-              this.isActive = val
-          })
-
-      }
-  }
 }
 </script>
 
@@ -174,7 +179,6 @@ export default {
         top: 0;
         bottom: 0;
         background: rgba(0,0,0,0.5);
-        transition: transform ease 1s;
 
         .titles {
             position: absolute;
@@ -184,7 +188,6 @@ export default {
             height: 100%;
             width: 80%;
             background: #fff;
-            transition: transform ease 5s;
             overflow: auto;
 
             .titles-item {
@@ -195,13 +198,16 @@ export default {
                 border-bottom: 1px solid #eee;
             }
         }
+
+        .slide-enter, .slide-leave-to{
+            transform: translate3d(-100%,0,0);
+        }
+        .slide-enter-active, .slide-leave-active{
+            transition: transform  0.5s ease;
+        }
     }
-    .active {
-        transform: translateX(100%);
-    }
-    .active1 {
-        background: #555;
-    }
+
+ 
 
      
 </style>
