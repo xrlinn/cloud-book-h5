@@ -19,6 +19,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    .mint-header{
+      background: #f5f5f5;
+      color: #333333;
+    }
 
 </style>

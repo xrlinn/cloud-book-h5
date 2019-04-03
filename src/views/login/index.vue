@@ -10,7 +10,7 @@
                 <div class="icon">
                     <i class="iconfont icon-gerenzhongxin1"></i>
                 </div>
-                <xrl-field  v-model="username" class="input">
+                <xrl-field  v-model="phone" class="input">
                 </xrl-field>
             </div> 
             <div class="login">
@@ -34,18 +34,40 @@
 
 <script>
 import { Field } from 'mint-ui';
-import {Button} from 'mint-ui'
+import {Button, Toast} from 'mint-ui'
 export default {
   name: 'login',
   components: {
       'xrl-field':Field,
       Button
   },
+  data () {
+      return {
+          phone: '',
+          password: '',
+      }
+  },
   methods: {
       login () {
-          this.$router.push({
-              path: '/logout'
+          this.$axios.post(this.$api.login,{
+              phone: this.phone,
+              password: this.password
+          }).then(res => {
+              console.log(res)
+              if(res.code == 200){
+                  localStorage.setItem('token',res.token)
+                  Toast({
+                      message: '登陆成功',
+                      duration: 1000
+                  })
+                  setTimeout(() => {
+                      this.$router.push({
+                          name: 'index'
+                      })
+                  }, 1000);
+              }
           })
+
       }
   }
 }

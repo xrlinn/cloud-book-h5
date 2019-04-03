@@ -7,25 +7,27 @@
         </div>
         <div class="inputs">
             <div class="login">
-                <div class="icon">
+                <div class="icon-wrap">
                     <i class="iconfont icon-shouji"></i>
                 </div>
-                <xrl-field  type="tel" v-model="phone" class="input">
+                <xrl-field  type="tel" v-model="formData.phone" class="input" placeholder="请输入手机号">
                 </xrl-field>
             </div> 
             <div class="login">
-                <div class="icon">
-                    <i class="iconfont icon-mimakejian"></i>
+                <div class="icon-wrap" @click="toggleIcon" >
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-yincang"></use>
+                    </svg>
                 </div>
-                <xrl-field  type="password" v-model="password" class="input">
+                <xrl-field  :type="isHide?'password':'text'" v-model="formData.password" class="input" placeholder="请输入密码">
                 </xrl-field>
             </div>
             <div class="login">
-                <div class="icon">
+                <div class="icon-wrap">
                     <i class="iconfont icon-duanxinyanzheng"></i>
                 </div>
-                <xrl-field  type="number" v-model="number" class="input">
-                    <button class="btn1" @click="handleSendCode">获取验证码</button>
+                <xrl-field  type="number" v-model="formData.code" class="input" placeholder="请输入6位验证码"  :attr="{ oninput: 'if(value.length>6)value=value.slice(0,6)' }">
+                    <button class="btn1" @click="handleSendCode" :disabled="disabled&&!isCanSendCode">{{btnText}}</button>
                 </xrl-field>
             </div>
             <div class="btn">
@@ -37,7 +39,7 @@
 
 <script>
 import { Field } from 'mint-ui'
-import {Button} from 'mint-ui'
+import {Button, Toast} from 'mint-ui'
 import validator from 'validator'
 export default {
   name: 'login',
@@ -50,19 +52,78 @@ export default {
           formData: {
               phone: '',
               password: '',
-              number: ''
-          }
+              code: ''
+          },
+          isHide: true,
+          btnText: '获取验证码',
+          disabled: false,
+          isCanSendCode: true,
+          isSendCode: false,
+          num: 60
       }
   },
   methods: {
       handleRegister () {
             this.$axios.post(this.$api.register,this.formData).then(res => {
+                if(res.code == 200){
+                    this.$router.push({
+                        name: 'login'
+                    })
+                    Toast({
+                        message: res.msg,
+                        duration: 1000
+                    })
+                }
 
             })
       },
       handleSendCode () {
-          
+          this.isSendCode = true
+          if(!this.disabled){
+              this.disabled = true
+              this.$axios.post(this.$api.sendCode,{
+                  phone: this.formData.phone
+              }).then(res => {
+                  if(res.code == 200){
+                      console.log(res)
+                      Toast({
+                          message: res.msg
+                      })
+                  } else {
+                      Toast({
+                          message: res.msg
+                      })
+                  }
+              })
+
+              let timer = setInterval(() => {
+                  this.num--
+                  this.btnText = `再次获取(${this.num})s`
+                  if(this.num == 0){
+                      clearInterval(timer)
+                      this.num = 60
+                      this.btnText = '获取验证码'
+                      this.disabled = false
+                  }
+              },1000)
+          }
+      },
+      toggleIcon () {
+          this.isHide = !this.isHide
+          const a = document.querySelector('.icon-wrap .icon use').href
+          a.baseVal = a.baseVal == "#icon-yincang"?"#icon-mimakejian":"#icon-yincang"
       } 
+  },
+  watch: {
+    formData: {
+      deep: true,
+      handler (newVal, oldVal) {
+        if(validator.isMobilePhone(newVal.phone, 'zh-CN')){
+          this.disabled = false
+          this.isCanSendCode = true
+        }
+      }
+    }
   }
 }
 </script>
@@ -85,19 +146,20 @@ export default {
 
         .login {
         display: flex;
-
         border-bottom: 1px solid #0099ff;
             .input{
                 flex:1;
             }
-            .icon{
+            .icon-wrap{
                 position: relative;
                 top: 10px;
                 display: flex;
-                width: 8%;
-                height: 100%;
-                .iconfont{
+                width: 26px;
+                height: 28px;
+                
+                .iconfont, .icon{
                     font-size: 24px;
+                    color: #333333;
                 }
             }
         }
@@ -112,8 +174,7 @@ export default {
         background: #f9fafb;
         color: #a2a5ae;
     }
-    
-
-
 </style>
+
+
 

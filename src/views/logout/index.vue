@@ -17,7 +17,7 @@
             <div class="header-row2">
                     <div class="collection-item">
                         <div class="title">
-                            3
+                            {{read}}
                             <span class="little-title">本</span>
                         </div>
                         <div class="msg">
@@ -26,7 +26,7 @@
                     </div>
                     <div class="collection-item">
                         <div class="title">
-                            0
+                            {{collection}}
                             <span class="little-title">本</span>
                         </div>
                         <div class="msg">
@@ -35,7 +35,7 @@
                     </div>
                     <div class="collection-item">
                         <div class="title">
-                            1
+                            {{like}}
                             <span class="little-title">本</span>
                         </div>
                         <div class="msg">
@@ -99,16 +99,32 @@
 import {Button} from 'mint-ui'
 
 export default {
-  name: 'person',
+  name: 'logout',
   components: {
       Button
   },
+  data () {
+      return {
+          collection: '',
+          read: '',
+          like: ''
+      }
+  },
   methods: {
       logout () {
+          localStorage.clear()
           this.$router.push({
-              name: 'login'
+              name: 'person'
           })
       }
+  },
+  created () {
+      this.$axios.get(this.$api.getUserData,localStorage.getItem('token')).then(res => {
+          console.log(res)
+          this.collection = res.data.collection
+          this.read = res.data.read
+          this.like = res.data.like
+      })
   }
 }
 </script>

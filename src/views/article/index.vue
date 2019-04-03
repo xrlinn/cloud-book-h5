@@ -150,7 +150,9 @@ export default {
 
 <style scoped lang="scss">
 @import '../../globalCss/px2-rem.scss';
-
+    .container{
+        margin-top: 40px;
+    }
     .btns{
         display: flex;
         justify-content: space-between;
@@ -206,10 +208,6 @@ export default {
             transition: transform  0.5s ease;
         }
     }
-
- 
-
-     
 </style>
 
 <style lang="scss">

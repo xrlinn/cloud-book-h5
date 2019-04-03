@@ -98,6 +98,7 @@ export default {
 
   .container{
     padding-bottom: 51px;
+    margin-top: 40px;
   }
 
   .book {

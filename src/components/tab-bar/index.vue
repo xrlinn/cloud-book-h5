@@ -28,13 +28,24 @@ export default {
   },
   data () {
     return {
-      selected: this.$route.name
+      selected: 'index'
     }
   },
   watch: {
-    selected (val) {
-      this.$router.push(val)
-    }
+      selected (val) {
+        if(val == 'person'&&localStorage.getItem('token')){
+          this.$router.push({
+            path: 'logout'
+          })
+        } else {
+          this.$router.push({
+            name: val
+          })
+        }
+      }
+    },    
+  created () {
+    this.selected = this.$route.name
   }
 }
 </script>
