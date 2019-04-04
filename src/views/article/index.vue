@@ -29,122 +29,122 @@ import { Toast } from 'mint-ui'
 export default {
   name: 'xrl-article',
   data () {
-      return {
-          article:{},
-          html: '',
-          fontSize: 48,
-          titles: [],
-          index: -1,
-          isShowTitles: false,
-          isActive: false,
-      }
+    return {
+      article: {},
+      html: '',
+      fontSize: 48,
+      titles: [],
+      index: -1,
+      isShowTitles: false,
+      isActive: false
+    }
   },
   methods: {
-      getArticle (itemid) {
-          return new Promise((reslove) => {
-             const id = itemid?itemid:this.$route.params.id
-             this.$axios.get(this.$api.getArticle + id).then(res => {
-               const converter = new Showdown.Converter()
-               this.html = converter.makeHtml(res.data.article.content)
-               this.article = res.data 
-               this.index = this.article.article.index
-               reslove()
-             })
-          })  
-      },
-      getTitles () {
-        const id  = this.article.article.bookId
-        this.$axios.get(this.$api.getTitles + id).then(res => {
-          this.titles = res.data
-       })
-      },
-      handleJump (isprev) {
-          const _this = this
-          function getArticleById() {
-              const item = _this.titles.find(item => item.index == _this.index)
-              const id = item._id
-              _this.getArticle(id)
-              _this.$router.push({
-                  name: 'article',
-                  params: {
-                      id
-                  }
-              })
+    getArticle (itemid) {
+      return new Promise((resolve) => {
+        const id = itemid || this.$route.params.id
+        this.$axios.get(this.$api.getArticle + id).then(res => {
+          const converter = new Showdown.Converter()
+          this.html = converter.makeHtml(res.data.article.content)
+          this.article = res.data
+          this.index = this.article.article.index
+          resolve()
+        })
+      })
+    },
+    getTitles () {
+      const id = this.article.article.bookId
+      this.$axios.get(this.$api.getTitles + id).then(res => {
+        this.titles = res.data
+      })
+    },
+    handleJump (isprev) {
+      const _this = this
+      function getArticleById () {
+        const item = _this.titles.find(item => item.index === _this.index)
+        const id = item._id
+        _this.getArticle(id)
+        _this.$router.push({
+          name: 'article',
+          params: {
+            id
           }
-          if(isprev == 'prev') {
-              if(this.index == 0) {
-                  Toast({
-                      message: '已经是第一章了亲',
-                      position: 'center',
-                      duration: '1500'
-                  }) 
-              }else {
-                  this.index--
-                  getArticleById()
-              }
-          }else {
-              if(this.index == this.titles.length ) {
-                  Toast({
-                      message: '已经是最后一章了亲',
-                      position: 'center',
-                      duration: '1500'
-                  })
-              }else {
-                  this.index++
-                  getArticleById()
-              }
-          }
-      },
-      handleAdd () {
-          if(this.fontSize >= 50){
-              Toast({
-                  message: '恕在下无能,不能再大了',
-                  position: 'center',
-                  duration: 2000
-              })
-          }else {
-            this.fontSize += 2;
-          }
-      },
-      handleReduce () {
-          if(this.fontSize <= 42){
-              Toast({
-                  message: '字体太小损害眼睛哦亲',
-                  position: 'center',
-                  duration: 2000
-              })
-          }else {
-            this.fontSize -= 2;
-          }
-      },
-      jump (index) {
-          const item = this.titles.find(item => item.index == index)
-          const id = item._id
-          this.getArticle(id)
-          this.$router.push({
-              name: 'article',
-              params: {
-                  id
-              }
-          })
-          this.isShowTitles = false
-      },
-      showTitles () {
-          this.isShowTitles = true
-          this.isActive = true
-      },
-      hideTitles () {
-          this.isActive = false
-          setTimeout(() => {
-              this.isShowTitles = false
-          }, 500)
+        })
       }
+      if (isprev === 'prev') {
+        if (this.index === 0) {
+          Toast({
+            message: '已经是第一章了亲',
+            position: 'center',
+            duration: '1500'
+          })
+        } else {
+          this.index--
+          getArticleById()
+        }
+      } else {
+        if (this.index === this.titles.length) {
+          Toast({
+            message: '已经是最后一章了亲',
+            position: 'center',
+            duration: '1500'
+          })
+        } else {
+          this.index++
+          getArticleById()
+        }
+      }
+    },
+    handleAdd () {
+      if (this.fontSize >= 50) {
+        Toast({
+          message: '恕在下无能,不能再大了',
+          position: 'center',
+          duration: 2000
+        })
+      } else {
+        this.fontSize += 2
+      }
+    },
+    handleReduce () {
+      if (this.fontSize <= 42) {
+        Toast({
+          message: '字体太小损害眼睛哦亲',
+          position: 'center',
+          duration: 2000
+        })
+      } else {
+        this.fontSize -= 2
+      }
+    },
+    jump (index) {
+      const item = this.titles.find(item => item.index === index)
+      const id = item._id
+      this.getArticle(id)
+      this.$router.push({
+        name: 'article',
+        params: {
+          id
+        }
+      })
+      this.isShowTitles = false
+    },
+    showTitles () {
+      this.isShowTitles = true
+      this.isActive = true
+    },
+    hideTitles () {
+      this.isActive = false
+      setTimeout(() => {
+        this.isShowTitles = false
+      }, 500)
+    }
   },
   created () {
-      this.getArticle().then(() => {
-          this.getTitles()
-      })
-  },
+    this.getArticle().then(() => {
+      this.getTitles()
+    })
+  }
 }
 </script>
 
@@ -213,4 +213,3 @@ export default {
 <style lang="scss">
    @import './markdown.scss';
 </style>
-

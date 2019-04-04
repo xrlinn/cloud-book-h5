@@ -129,7 +129,6 @@ export default {
         font-size: 12px;
         flex-direction: column;
         justify-content: space-between;
-        
       }
     }
   }
@@ -183,7 +182,7 @@ export default {
 
     span{
       font-size: 12px;
-      margin-left: 20px; 
+      margin-left: 20px;
     }
 
     .date {

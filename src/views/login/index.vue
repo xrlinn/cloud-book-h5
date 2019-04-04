@@ -3,7 +3,7 @@
         <div class="header">
             <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-xuexi"></use>
-            </svg>           
+            </svg>
         </div>
         <div class="inputs">
             <div class="login">
@@ -12,7 +12,7 @@
                 </div>
                 <xrl-field  v-model="phone" class="input">
                 </xrl-field>
-            </div> 
+            </div>
             <div class="login">
                 <div class="icon">
                     <i class="iconfont icon-yanjing"></i>
@@ -26,49 +26,47 @@
                 </router-link>
             </div>
             <div class="btn">
-                <Button type="primary" size="large" @click="login">立即登录</Button>                
-            </div> 
+                <Button type="primary" size="large" @click="login">立即登录</Button>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import { Field } from 'mint-ui';
-import {Button, Toast} from 'mint-ui'
+import {Button, Toast, Field} from 'mint-ui'
 export default {
   name: 'login',
   components: {
-      'xrl-field':Field,
-      Button
+    'xrl-field': Field,
+    Button
   },
   data () {
-      return {
-          phone: '',
-          password: '',
-      }
+    return {
+      phone: '',
+      password: ''
+    }
   },
   methods: {
-      login () {
-          this.$axios.post(this.$api.login,{
-              phone: this.phone,
-              password: this.password
-          }).then(res => {
-              console.log(res)
-              if(res.code == 200){
-                  localStorage.setItem('token',res.token)
-                  Toast({
-                      message: '登陆成功',
-                      duration: 1000
-                  })
-                  setTimeout(() => {
-                      this.$router.push({
-                          name: 'index'
-                      })
-                  }, 1000);
-              }
+    login () {
+      this.$axios.post(this.$api.login, {
+        phone: this.phone,
+        password: this.password
+      }).then(res => {
+        console.log(res)
+        if (res.code === 200) {
+          localStorage.setItem('token', res.token)
+          Toast({
+            message: '登陆成功',
+            duration: 1000
           })
-
-      }
+          setTimeout(() => {
+            this.$router.push({
+              name: 'index'
+            })
+          }, 1000)
+        }
+      })
+    }
   }
 }
 </script>
@@ -78,6 +76,7 @@ export default {
 
     .header{
         height: px-to-rem(260);
+
         .icon{
             width: 100%;
             font-size: 80px;
@@ -90,18 +89,20 @@ export default {
         margin-top: px-to-rem(36);
 
         .login {
-        display: flex;
+            display: flex;
+            border-bottom: 1px solid #0099ff;
 
-        border-bottom: 1px solid #0099ff;
             .input{
                 flex:1;
             }
+
             .icon{
                 position: relative;
                 top: 10px;
                 display: flex;
                 width: 8%;
                 height: 100%;
+
                 .iconfont{
                     font-size: 24px;
                 }
@@ -119,6 +120,7 @@ export default {
                 font-size: 16px;
             }
         }
+
         .btn{
             margin-top: px-to-rem(82);
         }

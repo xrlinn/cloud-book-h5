@@ -59,12 +59,12 @@
                         <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-xiugaigerenxinxi"></use>
                         </svg>
-                        <h3>修改个人信息</h3>                         
+                        <h3>修改个人信息</h3>
                     </div>
                     <div class="right">
                         <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-youbian"></use>
-                        </svg>                       
+                        </svg>
                     </div>
                 </li>
                 <li class="item2">
@@ -72,12 +72,12 @@
                         <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-jiazhi"></use>
                         </svg>
-                        <h3>收藏书单</h3>                         
+                        <h3>收藏书单</h3>
                     </div>
                     <div class="right">
                         <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-youbian"></use>
-                        </svg>                       
+                        </svg>
                     </div>
                 </li>
                 <li class="item3">
@@ -85,12 +85,12 @@
                         <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-aihao-"></use>
                         </svg>
-                        <h3>喜欢的书</h3>                         
+                        <h3>喜欢的书</h3>
                     </div>
                     <div class="right">
                         <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-youbian"></use>
-                        </svg>                       
+                        </svg>
                     </div>
                 </li>
             </ul>
@@ -146,7 +146,7 @@ export default {
                 .msg{
                     color: #e0e0e0;
                 }
-            }                
+            }
 
             }
 
@@ -172,7 +172,7 @@ export default {
                    font-size: 16px;
                    .little-title{
                        font-size: 12px;
-                   } 
+                   }
                 }
                 .msg {
                     margin-top: 4px;
@@ -196,7 +196,6 @@ export default {
         }
     }
 
-    
     .footer{
         position: relative;
         top:px-to-rem(52);
@@ -232,7 +231,7 @@ export default {
                         margin-left: 4px;
                         font-size: 12px;
                         color: #343333;
-                    }               
+                    }
                 }
                 .right {
                     .icon {

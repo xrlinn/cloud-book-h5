@@ -10,7 +10,7 @@
                     yao
                 </h2>
                 <div class="msg">
-                    这个用户很懒，什么也没写
+                    这个家伙很懒，什么也没写
                 </div>
                 </div>
             </div>
@@ -48,17 +48,17 @@
         </div>
         <div class="footer">
             <ul>
-                <li class="item1">
+                <li class="item1" @click="handleJump1">
                     <div class="left">
                         <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-xiugaigerenxinxi"></use>
                         </svg>
-                        <h3>修改个人信息</h3>                         
+                        <h3>修改个人信息</h3>
                     </div>
                     <div class="right">
                         <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-youbian"></use>
-                        </svg>                       
+                        </svg>
                     </div>
                 </li>
                 <li class="item2">
@@ -66,12 +66,12 @@
                         <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-jiazhi"></use>
                         </svg>
-                        <h3>收藏书单</h3>                         
+                        <h3>收藏书单</h3>
                     </div>
                     <div class="right">
                         <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-youbian"></use>
-                        </svg>                       
+                        </svg>
                     </div>
                 </li>
                 <li class="item3">
@@ -79,18 +79,18 @@
                         <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-aihao-"></use>
                         </svg>
-                        <h3>喜欢的书</h3>                         
+                        <h3>喜欢的书</h3>
                     </div>
                     <div class="right">
                         <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-youbian"></use>
-                        </svg>                       
+                        </svg>
                     </div>
                 </li>
             </ul>
             <div class="btn">
-                <Button type="primary" size="large" @click="logout">退出登录</Button>                
-            </div> 
+                <Button type="primary" size="large" @click="logout">退出登录</Button>
+            </div>
         </div>
     </div>
 </template>
@@ -101,30 +101,35 @@ import {Button} from 'mint-ui'
 export default {
   name: 'logout',
   components: {
-      Button
+    Button
   },
   data () {
-      return {
-          collection: '',
-          read: '',
-          like: ''
-      }
+    return {
+      collection: '',
+      read: '',
+      like: ''
+    }
   },
   methods: {
-      logout () {
-          localStorage.clear()
-          this.$router.push({
-              name: 'person'
-          })
-      }
+    logout () {
+      localStorage.clear()
+      this.$router.push({
+        name: 'person'
+      })
+    },
+    handleJump1 () {
+      this.$router.push({
+        name: 'revise'
+      })
+    }
   },
   created () {
-      this.$axios.get(this.$api.getUserData,localStorage.getItem('token')).then(res => {
-          console.log(res)
-          this.collection = res.data.collection
-          this.read = res.data.read
-          this.like = res.data.like
-      })
+    this.$axios.get(this.$api.getUserData, localStorage.getItem('token')).then(res => {
+      console.log(res)
+      this.collection = res.data.collection
+      this.read = res.data.read
+      this.like = res.data.like
+    })
   }
 }
 </script>
@@ -162,9 +167,7 @@ export default {
                 .msg{
                     color: #e0e0e0;
                 }
-            }                
-
-            
+            }
 
         }
         .header-row2 {
@@ -174,6 +177,7 @@ export default {
             justify-content: space-between;
             margin-top: 30px;
             text-align: center;
+
             .collection-item {
                 &:nth-child(1){
                     width: 30%;
@@ -188,7 +192,7 @@ export default {
                    font-size: 16px;
                    .little-title{
                        font-size: 12px;
-                   } 
+                   }
                 }
                 .msg {
                     margin-top: 4px;
@@ -212,7 +216,6 @@ export default {
         }
     }
 
-    
     .footer{
         position: relative;
         top:px-to-rem(52);
@@ -237,25 +240,25 @@ export default {
             border-bottom: 1px solid #eeeeee;
             line-height: px-to-rem(135);
 
-                .left{
-                    display: flex;
-                    align-items: center;
-                    .icon{
-                        font-size: 32px;
-                        text-align: center;
-                    }
-                    h3{
-                        margin-left: 4px;
-                        font-size: 12px;
-                        color: #343333;
-                    }               
+            .left{
+                display: flex;
+                align-items: center;
+                .icon{
+                    font-size: 32px;
+                    text-align: center;
                 }
-                .right {
-                    .icon {
-                        color: #e0e0e0;
-                    }
+                h3{
+                    margin-left: 4px;
+                    font-size: 12px;
+                    color: #343333;
                 }
             }
+            .right {
+                .icon {
+                    color: #e0e0e0;
+                }
+            }
+          }
         }
 
         .btn{
@@ -265,6 +268,4 @@ export default {
             }
         }
     }
-
 </style>
-

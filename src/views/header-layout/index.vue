@@ -13,8 +13,8 @@ import {Header, Button} from 'mint-ui'
 export default {
   name: 'header-layout',
   components: {
-      Header,
-      Button
+    Header,
+    Button
   }
 }
 </script>

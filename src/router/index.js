@@ -25,7 +25,7 @@ const router = new Router({
           meta: {
             title: '个人中心'
           },
-          component: () => import('@/views/person'),   
+          component: () => import('@/views/person')
         },
         {
           path: '/logout',
@@ -74,11 +74,16 @@ const router = new Router({
           },
           component: () => import('@/views/article')
         },
+        {
+          path: '/revise',
+          name: 'revise',
+          meta: {
+            title: '修改个人信息'
+          },
+          component: () => import('@/views/revise')
+        }
       ]
     },
-    
-    
-    
     {
       path: '/login',
       name: 'login',
@@ -94,7 +99,7 @@ const router = new Router({
         title: '注册'
       },
       component: () => import('@/views/register')
-    } 
+    }
 
   ]
 })

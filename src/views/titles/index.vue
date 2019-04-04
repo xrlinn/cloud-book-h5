@@ -16,12 +16,12 @@ export default {
   data () {
     return {
       titles: [],
-      bookData:[]
+      bookData: []
     }
   },
   methods: {
     getTitles () {
-      const id  = this.$route.params.id
+      const id = this.$route.params.id
       this.$axios.get(this.$api.getTitles + id).then(res => {
         console.log(res)
         this.titles = res.data
@@ -35,7 +35,7 @@ export default {
         this.bookData = resData
         document.title = this.bookData.title + '  ' + '目录'
       })
-    },
+    }
   },
   created () {
     this.getTitles()
