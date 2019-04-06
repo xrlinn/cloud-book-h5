@@ -23,7 +23,7 @@
         </div><!--book end-->
 
         <div class="btns"><!--btns start-->
-           <Button size="small">加入收藏</Button>
+           <Button size="small" @click="handleCollect">加入收藏</Button>
            <Button size="small">分享好友</Button>
          </div><!--btns end-->
 
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import {Button} from 'mint-ui'
+import {Button, Toast} from 'mint-ui'
 import moment from 'moment'
 
 export default {
@@ -85,6 +85,24 @@ export default {
           id: this.bookData._id
         }
       })
+    },
+    handleCollect () {
+      if (!this.bookData._id) {
+        this.$axios.post(this.$api.addCollection, this.bookData._id).then(res => {
+          console.log(res)
+          if (res.code === 200) {
+            Toast({
+              message: res.msg,
+              duration: 1000
+            })
+          }
+        })
+      } else {
+        Toast({
+          message: '您已经收藏过了哦',
+          duration: 1000
+        })
+      }
     }
   },
   created () {

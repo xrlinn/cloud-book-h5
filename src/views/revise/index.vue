@@ -57,7 +57,7 @@ export default {
     }
   },
   created () {
-    this.$axios.get(this.$api.getUserData, localStorage.getItem('token')).then(res => {
+    this.$axios.get(this.$api.getUserData, this.$axios.token).then(res => {
       console.log(res)
       this.phone = res.data.user.phone
     })

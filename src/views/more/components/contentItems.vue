@@ -1,38 +1,32 @@
 <template>
-    <div class="content-item">
-        <div class="content-item-row1">
-            <h2 class="title">
-                {{options.title}}
-            </h2>
-            <router-link :to="{name: 'more', params: {typeId: options._id}}">更多</router-link>
-        </div>
-        <div class="content-item-row2" v-for="(it, index) in options.books" :key="index">
-            <router-link :to="{name: 'details', params: {id: it._id}}" class="content-row2">
-            <div class="img-wrap">
-                <img :src="it.img" :alt="it.img">
+        <div class="content-item">
+            <div class="content-item-row2">
+                <router-link :to="{name: 'details', params: {id: options._id}}" class="content-row2">
+                <div class="img-wrap">
+                    <img :src="options.img" :alt="options.img">
+                </div>
+                <div class="article">
+                    <div class="article-title">
+                        {{options.title}}
+                    </div>
+                    <div class="article-preview">
+                        {{options.desc}}
+                    </div>
+                    <div class="article-msg">
+                        <div class="author">
+                            {{options.author}}
+                        </div>
+                        <div class="date">
+                            {{options.updateTime}}
+                        </div>
+                        <div class="looknums">
+                            {{options.looknums}}人在看
+                        </div>
+                    </div>
+                </div>
+                </router-link>
             </div>
-            <div class="article">
-                <div class="article-title">
-                    {{it.title}}
-                </div>
-                <div class="article-preview">
-                    {{it.desc}}
-                </div>
-                <div class="article-msg">
-                    <div class="author">
-                        {{it.author}}
-                    </div>
-                    <div class="date">
-                        {{it.updateTime}}
-                    </div>
-                    <div class="looknums">
-                        {{it.looknums}}人在看
-                    </div>
-                </div>
-            </div>
-            </router-link>
         </div>
-    </div>
 </template>
 
 <script>
@@ -52,16 +46,8 @@ export default {
 
 .content-item {
     margin-top: 40px;
-    .content-item-row1 {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        border-left: 2px solid #333;
-        padding-left: 10px;
-        padding: 4px 0 4px 10px;
-    }
+
     .content-row2 {
-        margin-top: 20px;
         display: flex;
         justify-content: space-between;
 

@@ -99,8 +99,15 @@ const router = new Router({
         title: '注册'
       },
       component: () => import('@/views/register')
+    },
+    {
+      path: '/category/:typeId/books',
+      name: 'more',
+      meta: {
+        title: '更多'
+      },
+      component: () => import('@/views/more')
     }
-
   ]
 })
 

@@ -25,6 +25,7 @@ export default {
   data () {
     return {
       contentData: [],
+      // categoryData: [],
       queryData: {
         pn: 1,
         booksSize: 2,
@@ -40,6 +41,7 @@ export default {
           params: this.queryData
         })
           .then(res => {
+            console.log(res)
             let resData = res.data
             if (resData.length < this.queryData.size) {
               this.allLoaded = true // 若数据已全部获取完毕
@@ -58,12 +60,13 @@ export default {
     },
     loadTop () {
       this.queryData = {
-        pn: 1,
-        booksSize: 4,
+        pn: this.queryData.pn + 1,
+        booksSize: 2,
         size: 2
       }
       this.allLoaded = false
       this.getContent().then(() => {
+        this.allLoaded = true
         this.$refs.loadmore.onTopLoaded()
       })
     },
@@ -77,11 +80,11 @@ export default {
         // this.allLoaded = true
         this.$refs.loadmore.onBottomLoaded()
       })
-    }
+    },
   },
   created () {
-    this.getContent()
-  }
+  this.getContent()
+  },
 }
 </script>
 
