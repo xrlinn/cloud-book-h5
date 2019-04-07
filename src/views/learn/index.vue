@@ -2,7 +2,7 @@
     <div class="container">
       <!-- <Loadmore  :bottom-method="loadBottom" :bottom-all-loaded="allLoaded"  ref="loadmore" :auto-fill="false"> -->
         <div class="content">
-          <contentItem/>
+          <contentItem v-for="(item,index) in contentData" :key="index" :options="item"/>
         </div>
       <!-- </Loadmore> -->
     </div>
@@ -22,6 +22,18 @@ export default {
     return {
       contentData: []
     }
+  },
+  methods: {
+    getReadList () {
+      this.$axios.get(this.$api.getReadList,this.$axios.token).then(res => {
+        const resData = res.data
+        console.log(resData)
+        this.contentData = [...this.contentData, ...resData]
+      })
+    }
+  },
+  created () {
+    this.getReadList()
   }
 }
 </script>

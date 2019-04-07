@@ -28,14 +28,6 @@ const router = new Router({
           component: () => import('@/views/person')
         },
         {
-          path: '/logout',
-          name: 'person',
-          meta: {
-            title: '退出登录'
-          },
-          component: () => import('@/views/logout')
-        },
-        {
           path: 'learn',
           name: 'learn',
           meta: {

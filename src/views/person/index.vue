@@ -1,29 +1,40 @@
 <template>
     <div class="container">
         <div class="header">
-            <div class="header-row1">
-                <router-link class="jump" to="login">
-                    <div class="header-left">
-                    <h2 class="userName">
-                        立即登录
-                    </h2>
-                    <div class="msg">
-                        时光回头，当下最重要
-                    </div>
-                    </div>
-                </router-link>
-
+            <router-link class="header-row1" to="login" v-if="!userMsg.user">
+                <div class="header-left">
+                <h2 class="userName">
+                    立即登录
+                </h2>
+                <div class="msg">
+                    时光回头，当下最重要
+                </div>
+                </div>
                 <div class="header-right">
-                    <img src="" alt="">
+                    <img src="@/assets/avatar1.jpg" alt="">
                     <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-youbian"></use>
                     </svg>
+                </div>
+            </router-link>
+
+            <div class="header-row1 user-box" v-else>
+                <div class="header-left">
+                <h2 class="userName">
+                    {{userMsg.user.phone || userMsg.user.userName}}
+                </h2>
+                <div class="msg">
+                    {{userMsg.user.desc || '这个家伙很懒，什么也没写'}}
+                </div>
+                </div>
+                <div class="header-right">
+                    <img :src="userMsg.user.avatar || useImg" alt="">
                 </div>
             </div>
             <div class="header-row2">
                     <div class="collection-item">
                         <div class="title">
-                            24
+                            {{userMsg.read}}
                             <span class="little-title">本</span>
                         </div>
                         <div class="msg">
@@ -32,7 +43,7 @@
                     </div>
                     <div class="collection-item">
                         <div class="title">
-                            22
+                            {{userMsg.collection}}
                             <span class="little-title">本</span>
                         </div>
                         <div class="msg">
@@ -41,7 +52,7 @@
                     </div>
                     <div class="collection-item">
                         <div class="title">
-                            10
+                            {{userMsg.like}}
                             <span class="little-title">本</span>
                         </div>
                         <div class="msg">
@@ -54,7 +65,7 @@
         </div>
         <div class="footer">
             <ul>
-                <li class="item1">
+                <li class="item1" @click="handleJump1">
                     <div class="left">
                         <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-xiugaigerenxinxi"></use>
@@ -94,13 +105,48 @@
                     </div>
                 </li>
             </ul>
+            <div class="btn" v-if="userMsg.user">
+                <Button type="primary" size="large" @click="logout">退出登录</Button>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import {Button} from 'mint-ui'
+import useImg from '@/assets/avatar.jpg'
 export default {
-  name: 'person'
+  name: 'person',
+  components: {
+    Button
+  },
+  data () {
+    return {
+      useImg     
+    }
+  },
+  methods: {
+    logout () {
+      localStorage.removeItem('token')
+      history.go(0)
+    },
+    handleJump1 () {
+      this.$router.push({
+        name: 'revise'
+      })
+    }
+  },
+  created () {
+    let token = localStorage.getItem('token')
+    if (token) {
+      this.$store.dispatch('getUserData')
+    }
+  },
+  computed: {
+    userMsg () {
+      return this.$store.state.userMsg
+    }
+  }
 }
 </script>
 
@@ -133,23 +179,33 @@ export default {
                     color: #fff;
                 }
             }
-            .jump {
-               display: flex;
+            
             .header-left{
                 display: flex;
                 flex-direction: column;
-                align-items: center;
-                justify-content: space-between;
+                // align-items: center;
+                justify-content: space-around;
                 margin-left: 10px;
-                margin-top: px-to-rem(40);
+                // margin-top: px-to-rem(40);
                 color: #fff;
+                h2 {
+                  font-size: 26px;
+                }
                 .msg{
                     color: #e0e0e0;
+                    font-size: 12px;
                 }
             }
+        }
 
-            }
+        .user-box {
+          flex-direction: row-reverse;
+          justify-content: flex-end;
 
+          .header-left{
+            margin-left: 20px;
+            flex: 1;
+          }
         }
         .header-row2 {
             position: relative;
@@ -238,6 +294,13 @@ export default {
                         color: #e0e0e0;
                     }
                 }
+            }
+        }
+
+        .btn{
+            margin-top: px-to-rem(180);
+            .mint-button{
+                background:#ef4f4f;
             }
         }
     }

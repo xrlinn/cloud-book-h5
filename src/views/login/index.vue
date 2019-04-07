@@ -10,14 +10,14 @@
                 <div class="icon">
                     <i class="iconfont icon-gerenzhongxin1"></i>
                 </div>
-                <xrl-field  v-model="phone" class="input">
+                <xrl-field  v-model="formData.phone" class="input">
                 </xrl-field>
             </div>
             <div class="login">
                 <div class="icon">
                     <i class="iconfont icon-yanjing"></i>
                 </div>
-                <xrl-field  type="password" v-model="password" class="input">
+                <xrl-field  type="password" v-model="formData.password" class="input">
                 </xrl-field>
             </div>
             <div class="register">
@@ -34,6 +34,7 @@
 
 <script>
 import {Button, Toast, Field} from 'mint-ui'
+import validator from 'validator'
 export default {
   name: 'login',
   components: {
@@ -42,30 +43,39 @@ export default {
   },
   data () {
     return {
-      phone: '',
-      password: ''
+      formData: {
+        phone: '',
+        password: ''
+      }
     }
   },
   methods: {
     login () {
-      this.$axios.post(this.$api.login, {
-        phone: this.phone,
-        password: this.password
-      }).then(res => {
+      let phoneStatus = validator.isMobilePhone(this.formData.phone, 'zh-CN')
+      let passwordStatus = validator.isLength(this.formData.password,{
+        min: 6
+      })
+      if (phoneStatus && passwordStatus) {
+        this.$axios.post(this.$api.login, this.formData).then(res => {
         console.log(res)
         if (res.code === 200) {
           localStorage.setItem('token', res.token)
           Toast({
             message: '登陆成功',
-            duration: 1000
           })
           setTimeout(() => {
             this.$router.push({
-              name: 'index'
+              name: 'person'
             })
-          }, 1000)
+          }, 800)
         }
       })
+      } else {
+        Toast({
+          message: '不是合法的手机号码或密码长度不够6位'
+        })
+      }
+      
     }
   }
 }

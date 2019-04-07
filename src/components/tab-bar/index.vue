@@ -33,15 +33,9 @@ export default {
   },
   watch: {
     selected (val) {
-      if (val === 'person' && localStorage.getItem('token')) {
-        this.$router.push({
-          path: 'logout'
-        })
-      } else {
-        this.$router.push({
-          name: val
-        })
-      }
+      this.$router.push({
+        name: val
+      })
     }
   },
   created () {

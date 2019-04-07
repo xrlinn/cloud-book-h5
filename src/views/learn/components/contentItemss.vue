@@ -1,31 +1,31 @@
 <template>
     <div class="content-item">
       <div class="content-item-left">
-        <img src="" alt="">
+        <img :src="options.book.img" alt="">
       </div>
       <div class="content-item-right">
-        <h3>ECMA入门</h3>
+        <h3>{{options.book.title}}</h3>
         <div class="unit">
-          书籍8/27章节
+          书籍{{options.title.index}}/{{options.title.total}}章节
         </div>
         <div class="progress-bar">
           <div class="left">
-            <div class="row-line"></div>
-            <div class="row-line1"></div>
-          </div>
-          <div class="right">
-            已看67%
+            <Progress :value="Number(options.title.index/options.title.total * 100).toFixed()">
+              <div slot="end" class="read">
+                已看{{Number(options.title.index/options.title.total * 100).toFixed()}}%
+              </div>
+            </Progress>
           </div>
         </div>
         <div class="last-view">
-          <p>上次查看:红黑树</p>
+          <p>上次查看:{{options.title.title}}</p>
           <p class="date">
             7天前
           </p>
         </div>
         <div class="btns">
-          <button>继续阅读</button>
-          <button>查看文档</button>
+          <button @click="jump">继续阅读</button>
+          <button @click="jump1">查看文档</button>
         </div>
       </div>
 
@@ -33,10 +33,32 @@
 </template>
 
 <script>
+import {Progress} from 'mint-ui'
 export default {
   name: 'contentItem',
+  components: {
+    Progress
+  },
   props: {
     options: Object
+  },
+  methods: {
+    jump () {
+      this.$router.push({
+        name: 'article',
+        params: {
+          id: this.options.title._id
+        }
+      })
+    },
+    jump1 () {
+      this.$router.push({
+        name: 'details',
+        params: {
+          id: this.options.book._id
+        }
+      })
+    }
   },
   created () {
     console.log(this.options)
@@ -49,6 +71,7 @@ export default {
 
 .content-item{
   display: flex;
+  margin-top: 20px;
   .content-item-left{
     img{
       width: px-to-rem(200);
@@ -64,27 +87,8 @@ export default {
     flex:1;
     color: #555;
     .progress-bar{
-      display: flex;
-      justify-content: space-between;
-      .left{
-        position: relative;
-        display: flex;
-        align-items: center;
-        .row-line{
-        height: 2px;
-        width: 100px;
-        background: green;
-        z-index: 1;
-        }
-        .row-line1{
-        position: absolute;
-        height: 2px;
-        width: 150px;
-        background:#e0e0e0;
-        }
-      }
-      .right{
-        font-size: 10px;
+      .read{
+        margin-left: 40px;
       }
     }
 
