@@ -107,6 +107,15 @@ export default {
   },
   created () {
     this.getBookData()
+    // this.$axios.get(this.$api.getCollection,{
+    //   token: this.$axios.token,
+    //   params: {
+    //     pn: 1,
+    //     size: 20
+    //   }
+    // }).then(res => {
+    //       console.log(res)
+    // })
   }
 }
 </script>

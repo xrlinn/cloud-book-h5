@@ -6,26 +6,25 @@
       <div class="content-item-right">
         <h3>{{options.book.title}}</h3>
         <div class="unit">
-          书籍{{options.title.index}}/{{options.title.total}}章节
+          书籍{{options.title.index + 1}}/{{options.title.total}}章节
         </div>
         <div class="progress-bar">
           <div class="left">
-            <Progress :value="Number(options.title.index/options.title.total * 100).toFixed()">
-              <div slot="end" class="read">
-                已看{{Number(options.title.index/options.title.total * 100).toFixed()}}%
-              </div>
-            </Progress>
+            <dy-progress :value="options.title.index + 1" :total="options.title.total"/>
+          </div>
+          <div class="read">
+            已看{{readPercent}}%
           </div>
         </div>
-        <div class="last-view">
-          <p>上次查看:{{options.title.title}}</p>
-          <p class="date">
-            7天前
-          </p>
+        <div class="last-view-wrap">
+          <div class="last-view">上次查看:{{options.title.title}}</div>
+          <div class="date">
+            <beforeTime :value="options.updatedTime"/>
+          </div>
         </div>
         <div class="btns">
-          <button @click="jump">继续阅读</button>
-          <button @click="jump1">查看文档</button>
+          <Button @click="jump" size="small">继续阅读</Button>
+          <Button @click="jump1" size="small">查看文档</Button>
         </div>
       </div>
 
@@ -33,11 +32,19 @@
 </template>
 
 <script>
-import {Progress} from 'mint-ui'
+import {Button} from 'mint-ui'
+import dyProgress from '@/components/dy-progress'
+import beforeTime from '@/components/before-time'
 export default {
   name: 'contentItem',
   components: {
-    Progress
+    Button,
+    dyProgress,
+    beforeTime
+  },
+  data () {
+    return {
+    }
   },
   props: {
     options: Object
@@ -58,6 +65,11 @@ export default {
           id: this.options.book._id
         }
       })
+    }
+  },
+  computed: {
+    readPercent () {
+      return Number((this.options.title.index + 1) / this.options.title.total * 100).toFixed()
     }
   },
   created () {
@@ -87,17 +99,29 @@ export default {
     flex:1;
     color: #555;
     .progress-bar{
-      .read{
-        margin-left: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .left{
+        flex: 0.9;
       }
     }
 
-    .last-view{
+    .last-view-wrap{
       display:flex;
       justify-content: space-between;
       flex: 0.5;
       align-items: center;
       font-size: 10px;
+      .last-view {
+        width: 200px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        display:-webkit-box;
+        -webkit-box-orient:vertical;
+        -webkit-line-clamp:1
+      }
     }
 
     .btns{
@@ -106,8 +130,4 @@ export default {
     }
   }
 }
-
-
-
-
 </style>

@@ -52,30 +52,29 @@ export default {
   methods: {
     login () {
       let phoneStatus = validator.isMobilePhone(this.formData.phone, 'zh-CN')
-      let passwordStatus = validator.isLength(this.formData.password,{
+      let passwordStatus = validator.isLength(this.formData.password, {
         min: 6
       })
       if (phoneStatus && passwordStatus) {
         this.$axios.post(this.$api.login, this.formData).then(res => {
-        console.log(res)
-        if (res.code === 200) {
-          localStorage.setItem('token', res.token)
-          Toast({
-            message: '登陆成功',
-          })
-          setTimeout(() => {
-            this.$router.push({
-              name: 'person'
+          console.log(res)
+          if (res.code === 200) {
+            sessionStorage.setItem('token', res.token)
+            Toast({
+              message: '登陆成功'
             })
-          }, 800)
-        }
-      })
+            setTimeout(() => {
+              this.$router.push({
+                name: 'person'
+              })
+            }, 800)
+          }
+        })
       } else {
         Toast({
           message: '不是合法的手机号码或密码长度不够6位'
         })
       }
-      
     }
   }
 }

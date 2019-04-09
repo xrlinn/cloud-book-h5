@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- cookie --> 浏览器上的一块空间，每次发送请求的时候会带上所有的cookie,通常很小
+    ，在古代，每个浏览器大约储存50条,一般来说是4K，有过期时间
+    <!-- localstorage --> 浏览器上的一块空间，每次请求不会带，没有过期时间，永久存储，空间极大，大约5M
+    <!-- sessionstorage -->浏览器上的一块空间，每次请求不会带，有过期时间（没有过期时间），页面关闭的时候就过期，只有关掉整个浏览器这个应用
+    才会删除sessionstorage
+</body>
+<script>
+    //储存
+    // localStorage.setItem('name','力宏') 
+    // 获取
+    // localStorage.getItem('name')
+    // 删除
+    // localStorage.removeItem('name')
+</script>
+</html>

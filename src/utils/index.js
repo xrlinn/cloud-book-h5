@@ -7,7 +7,7 @@ const fetch = axios.create({
 })
 
 fetch.interceptors.request.use((config) => {
-  let token = localStorage.getItem('token')
+  let token = sessionStorage.getItem('token')
   if (token) {
     config.headers.token = token
   }

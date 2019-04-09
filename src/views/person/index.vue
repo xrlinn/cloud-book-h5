@@ -21,7 +21,7 @@
             <div class="header-row1 user-box" v-else>
                 <div class="header-left">
                 <h2 class="userName">
-                    {{userMsg.user.phone || userMsg.user.userName}}
+                    {{userMsg.user.username}}
                 </h2>
                 <div class="msg">
                     {{userMsg.user.desc || '这个家伙很懒，什么也没写'}}
@@ -34,7 +34,7 @@
             <div class="header-row2">
                     <div class="collection-item">
                         <div class="title">
-                            {{userMsg.read}}
+                            {{userMsg.read || 0}}
                             <span class="little-title">本</span>
                         </div>
                         <div class="msg">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="collection-item">
                         <div class="title">
-                            {{userMsg.collection}}
+                            {{userMsg.collection || 0}}
                             <span class="little-title">本</span>
                         </div>
                         <div class="msg">
@@ -52,7 +52,7 @@
                     </div>
                     <div class="collection-item">
                         <div class="title">
-                            {{userMsg.like}}
+                            {{userMsg.like || 0}}
                             <span class="little-title">本</span>
                         </div>
                         <div class="msg">
@@ -122,12 +122,13 @@ export default {
   },
   data () {
     return {
-      useImg     
+      useImg
     }
   },
   methods: {
     logout () {
-      localStorage.removeItem('token')
+      sessionStorage.removeItem('token')
+      this.$store.commit('CHANGE_USER_DATA', {})
       history.go(0)
     },
     handleJump1 () {
@@ -137,14 +138,14 @@ export default {
     }
   },
   created () {
-    let token = localStorage.getItem('token')
+    let token = sessionStorage.getItem('token')
     if (token) {
       this.$store.dispatch('getUserData')
     }
   },
   computed: {
     userMsg () {
-      return this.$store.state.userMsg
+      return this.$store.state.userData
     }
   }
 }
@@ -179,7 +180,7 @@ export default {
                     color: #fff;
                 }
             }
-            
+
             .header-left{
                 display: flex;
                 flex-direction: column;

@@ -73,6 +73,22 @@ const router = new Router({
             title: '修改个人信息'
           },
           component: () => import('@/views/revise')
+        },
+        {
+          path: '/changeNickname',
+          name: 'changeNickname',
+          meta: {
+            title: '修改昵称'
+          },
+          component: () => import('@/views/changeNickname')
+        },
+        {
+          path: '/changePassword',
+          name: 'changePassword',
+          meta: {
+            title: '修改密码'
+          },
+          component: () => import('@/views/changePassword')
         }
       ]
     },
@@ -99,6 +115,14 @@ const router = new Router({
         title: '更多'
       },
       component: () => import('@/views/more')
+    },
+    {
+      path: '/test',
+      name: 'test',
+      meta: {
+        title: '测试专用页'
+      },
+      component: () => import('@/views/test')
     }
   ]
 })

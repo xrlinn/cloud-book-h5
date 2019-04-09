@@ -80,11 +80,11 @@ export default {
         // this.allLoaded = true
         this.$refs.loadmore.onBottomLoaded()
       })
-    },
+    }
   },
   created () {
-  this.getContent()
-  },
+    this.getContent()
+  }
 }
 </script>
 

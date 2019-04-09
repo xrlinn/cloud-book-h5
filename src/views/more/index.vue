@@ -22,13 +22,13 @@ export default {
   },
   data () {
     return {
-     contentData: [],
+      contentData: [],
       queryData: {
         pn: 1,
         size: 4
       },
       allLoaded: false,
-      resData: {}        
+      resData: {}
     }
   },
   methods: {
@@ -55,7 +55,7 @@ export default {
     },
     loadBottom () {
       this.queryData = {
-        pn:  this.queryData.pn + 1,
+        pn: this.queryData.pn + 1,
         size: 4
       }
       this.getAllBooks().then(() => {
@@ -70,6 +70,5 @@ export default {
 </script>
 
 <style scoped>
-
 
 </style>

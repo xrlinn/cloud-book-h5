@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     getReadList () {
-      this.$axios.get(this.$api.getReadList,this.$axios.token).then(res => {
+      this.$axios.get(this.$api.getReadList).then(res => {
         const resData = res.data
         console.log(resData)
         this.contentData = [...this.contentData, ...resData]
