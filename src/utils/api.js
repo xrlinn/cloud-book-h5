@@ -1,17 +1,17 @@
 export default {
   getSwiper: '/swiper', // 获取轮播图
-  getContent: '/category/books', // 按照分类获取图书
+  getContent: '/category/book', // 按照分类获取图书
   getBook: '/book/', // 获取单个图书
   getTitles: '/titles/', // 获取标题目录
   getArticle: '/article/', // 获取一篇文章
-  login: '/login_html', // 登录接口
-  sendCode: '/phoneValidator', // 发送短信验证码
-  register: '/register', // 注册
+  login: '/user/login', // 登录接口
+  sendCode: '/smsCode', // 发送短信验证码
+  register: '/user/register', // 注册
   getUserData: '/user', // 获取用户数据
-  addCollection: '/collection', // 添加收藏
-  getCollection: '/collection', // 添加收藏
+  addCollection: '/collect', // 添加收藏
+  getCollection: '/collect', // 获得收藏的书籍
   getAllBooks: '/category/', // 获取该分类下所有的图书
   getReadList: '/readList', // 获取阅读过的图书
   changeUser: '/user', // 修改用户 信息
-  changePassword: '/changePassword' // 修改密码
+  changePassword: '/user/changePassword' // 修改密码
 }

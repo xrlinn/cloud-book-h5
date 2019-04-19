@@ -3,7 +3,9 @@ import router from '../router'
 import {Toast} from 'mint-ui'
 
 const fetch = axios.create({
-  baseURL: 'https://m.yaojunrong.com/'
+  // baseURL: 'https://m.yaojunrong.com/'
+  baseURL: process.env.BASE_URL
+  // baseURL: 'http://192.168.1.175/'
 })
 
 fetch.interceptors.request.use((config) => {

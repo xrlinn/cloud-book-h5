@@ -1,8 +1,8 @@
 <template>
     <div class="container change-nickname">
-        <dy-input-change :value="userMsg.usernickname||userMsg.phone" @change="handleChange"/>
+        <dy-input-change :value="userMsg.desc" @change="handleChange"/>
         <div class="desc">
-            更好的昵称能让你的朋友更容易记住你
+            好的个性签名能让你的朋友更容易认识你哦
         </div>
         <div class="btn-wrap">
             <Button size="large" type="primary" @click="handleSave">保存更改</Button>
@@ -22,20 +22,20 @@ export default {
   },
   data () {
     return {
-      username: ''
+      desc: ''
     }
   },
   methods: {
     handleChange (val) {
-      this.username = val
+      this.desc = val
     },
     handleSave () {
       this.$axios.put(this.$api.changeUser, {
-        usernickname: this.username
+        desc: this.desc
       }).then(res => {
         if (res.code === 200) {
           Toast({
-            message: '昵称修改成功',
+            message: '个性签名修改成功',
             duration: 800
           })
           this.$store.dispatch('getUserData')

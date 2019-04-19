@@ -7,7 +7,7 @@
                     <h3>头像</h3>
                 </div>
                 <div class="right">
-                    <img :src="userData.user.avatar" alt="" class="img">
+                    <img :src="userData.avatar" alt="" class="img">
                     <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-youbian"></use>
                     </svg>
@@ -19,18 +19,18 @@
                     <h3>昵称</h3>
                 </div>
                 <div class="right">
-                    <h3>{{ userData.user.username}}</h3>
+                    <h3>{{ userData.usernickname}}</h3>
                     <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-youbian"></use>
                     </svg>
                 </div>
             </li>
-            <li class="item3">
+            <li class="item3" @click="jump2">
                 <div class="left">
                     <h3>个性签名</h3>
                 </div>
                 <div class="right">
-                    <h3>这个家伙很懒，什么也没写</h3>
+                    <h3>{{userData.desc}}</h3>
                     <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-youbian"></use>
                     </svg>
@@ -77,6 +77,11 @@ export default {
     jump1 () {
       this.$router.push({
         name: 'changeNickname'
+      })
+    },
+    jump2 () {
+      this.$router.push({
+        name: 'changeDesc'
       })
     },
     jump3 () {

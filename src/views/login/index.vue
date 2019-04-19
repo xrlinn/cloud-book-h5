@@ -59,7 +59,7 @@ export default {
         this.$axios.post(this.$api.login, this.formData).then(res => {
           console.log(res)
           if (res.code === 200) {
-            sessionStorage.setItem('token', res.token)
+            sessionStorage.setItem('token', res.data.token)
             Toast({
               message: '登陆成功'
             })
@@ -68,6 +68,10 @@ export default {
                 name: 'person'
               })
             }, 800)
+          } else {
+            Toast({
+              message: res.msg
+            })
           }
         })
       } else {

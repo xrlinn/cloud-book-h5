@@ -44,16 +44,17 @@ export default {
       return new Promise((resolve) => {
         const id = itemid || this.$route.params.id
         this.$axios.get(this.$api.getArticle + id).then(res => {
+          console.log(res)
           const converter = new Showdown.Converter()
-          this.html = converter.makeHtml(res.data.article.content)
+          this.html = converter.makeHtml(res.data.content)
           this.article = res.data
-          this.index = this.article.article.index
+          this.index = this.article.index
           resolve()
         })
       })
     },
     getTitles () {
-      const id = this.article.article.bookId
+      const id = this.article.bookId
       this.$axios.get(this.$api.getTitles + id).then(res => {
         this.titles = res.data
       })
@@ -103,18 +104,18 @@ export default {
           duration: 2000
         })
       } else {
-        this.fontSize += 2
+        this.fontSize += 4
       }
     },
     handleReduce () {
-      if (this.fontSize <= 42) {
+      if (this.fontSize <= 30) {
         Toast({
           message: '字体太小损害眼睛哦亲',
           position: 'center',
           duration: 2000
         })
       } else {
-        this.fontSize -= 2
+        this.fontSize -= 4
       }
     },
     jump (index) {

@@ -89,6 +89,22 @@ const router = new Router({
             title: '修改密码'
           },
           component: () => import('@/views/changePassword')
+        },
+        {
+          path: '/changeDesc',
+          name: 'changeDesc',
+          meta: {
+            title: '修改个性签名'
+          },
+          component: () => import('@/views/changeDesc')
+        },
+        {
+          path: '/collection',
+          name: 'collection',
+          meta: {
+            title: '已收藏书单'
+          },
+          component: () => import('@/views/collection')
         }
       ]
     },

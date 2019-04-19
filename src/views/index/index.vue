@@ -25,10 +25,9 @@ export default {
   data () {
     return {
       contentData: [],
-      // categoryData: [],
       queryData: {
         pn: 1,
-        booksSize: 2,
+        bookSize: 2,
         size: 2
       },
       allLoaded: false
@@ -61,7 +60,7 @@ export default {
     loadTop () {
       this.queryData = {
         pn: this.queryData.pn + 1,
-        booksSize: 2,
+        bookSize: 2,
         size: 2
       }
       this.allLoaded = false
@@ -73,7 +72,7 @@ export default {
     loadBottom () {
       this.queryData = {
         pn: this.queryData.pn + 1,
-        booksSize: 2,
+        bookSize: 2,
         size: 2
       }
       this.getContent().then(() => {

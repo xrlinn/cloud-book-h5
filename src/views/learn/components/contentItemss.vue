@@ -19,7 +19,7 @@
         <div class="last-view-wrap">
           <div class="last-view">上次查看:{{options.title.title}}</div>
           <div class="date">
-            <beforeTime :value="options.updatedTime"/>
+            <beforeTime :value="options.updateTime"/>
           </div>
         </div>
         <div class="btns">
@@ -115,7 +115,7 @@ export default {
       align-items: center;
       font-size: 10px;
       .last-view {
-        width: 200px;
+        width: 180px;
         overflow:hidden;
         text-overflow:ellipsis;
         display:-webkit-box;

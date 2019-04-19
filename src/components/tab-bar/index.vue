@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="tabbar">
         <Tabbar v-model="selected" :fixed="true">
         <TabItem id="index">
           <i class="iconfont icon-shouye" slot="icon"></i>

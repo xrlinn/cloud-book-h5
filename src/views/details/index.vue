@@ -16,7 +16,7 @@
                 {{bookData.looknums}}在看
               </div>
               <div class="like">
-                {{bookData.startsnums}}人喜欢
+                {{bookData.likenums}}人喜欢
               </div>
             </div>
           </div><!--book-right end-->
@@ -38,7 +38,7 @@
         <div class="show-titles">
           <h2 class="title" @click="handleJump">
             查看目录
-            <span>共{{totalTitles}}</span>
+            <span>共{{totalTitles}}章</span>
           </h2>
 
           <div class="date">
@@ -75,7 +75,12 @@ export default {
         let resData = res.data
         resData.updateTime = moment(resData.updateTime).format('YYYY年MM月DD日')
         this.bookData = resData
-        this.totalTitles = res.length
+      })
+    },
+    getTitles () {
+      const id = this.$route.params.id
+      this.$axios.get(this.$api.getTitles + id).then(res => {
+        this.totalTitles = res.data[0].total
       })
     },
     handleJump () {
@@ -87,35 +92,25 @@ export default {
       })
     },
     handleCollect () {
-      if (!this.bookData._id) {
-        this.$axios.post(this.$api.addCollection, this.bookData._id).then(res => {
-          console.log(res)
-          if (res.code === 200) {
-            Toast({
-              message: res.msg,
-              duration: 1000
-            })
-          }
-        })
-      } else {
-        Toast({
-          message: '您已经收藏过了哦',
-          duration: 1000
-        })
-      }
+      this.$axios.post(this.$api.addCollection, {bookId: this.bookData._id}).then(res => {
+        console.log(res)
+        if (res.code === 200) {
+          Toast({
+            message: res.msg,
+            duration: 1000
+          })
+        } else {
+          Toast({
+            message: '您已经收藏过了哦',
+            duration: 1000
+          })
+        }
+      })
     }
   },
   created () {
     this.getBookData()
-    // this.$axios.get(this.$api.getCollection,{
-    //   token: this.$axios.token,
-    //   params: {
-    //     pn: 1,
-    //     size: 20
-    //   }
-    // }).then(res => {
-    //       console.log(res)
-    // })
+    this.getTitles()
   }
 }
 </script>

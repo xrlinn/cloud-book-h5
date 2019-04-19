@@ -28,7 +28,6 @@ export default {
         // 所有的参数同 swiper 官方 api 参数
         // ...
         pagination: {
-
           el: '.swiper-pagination'
         }
       },

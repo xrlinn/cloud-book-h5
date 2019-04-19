@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="header">
-            <router-link class="header-row1" to="login" v-if="!userMsg.user">
+            <router-link class="header-row1" to="login" v-if="!userMsg">
                 <div class="header-left">
                 <h2 class="userName">
                     立即登录
@@ -21,14 +21,14 @@
             <div class="header-row1 user-box" v-else>
                 <div class="header-left">
                 <h2 class="userName">
-                    {{userMsg.user.username}}
+                    {{userMsg.usernickname}}
                 </h2>
                 <div class="msg">
-                    {{userMsg.user.desc || '这个家伙很懒，什么也没写'}}
+                    {{userMsg.desc || '这个家伙很懒，什么也没写'}}
                 </div>
                 </div>
                 <div class="header-right">
-                    <img :src="userMsg.user.avatar || useImg" alt="">
+                    <img :src="userMsg.avatar || useImg" alt="">
                 </div>
             </div>
             <div class="header-row2">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="collection-item">
                         <div class="title">
-                            {{userMsg.collection || 0}}
+                            {{userMsg.collected || 0}}
                             <span class="little-title">本</span>
                         </div>
                         <div class="msg">
@@ -78,7 +78,7 @@
                         </svg>
                     </div>
                 </li>
-                <li class="item2">
+                <li class="item2" @click="handleJump2">
                     <div class="left">
                         <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-jiazhi"></use>
@@ -105,7 +105,7 @@
                     </div>
                 </li>
             </ul>
-            <div class="btn" v-if="userMsg.user">
+            <div class="btn" v-if="userMsg">
                 <Button type="primary" size="large" @click="logout">退出登录</Button>
             </div>
         </div>
@@ -134,6 +134,11 @@ export default {
     handleJump1 () {
       this.$router.push({
         name: 'revise'
+      })
+    },
+    handleJump2 () {
+      this.$router.push({
+        name: 'collection'
       })
     }
   },
@@ -299,7 +304,7 @@ export default {
         }
 
         .btn{
-            margin-top: px-to-rem(180);
+            margin-top: px-to-rem(60);
             .mint-button{
                 background:#ef4f4f;
             }
