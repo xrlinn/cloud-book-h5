@@ -46,7 +46,7 @@ export default {
         this.$axios.get(this.$api.getArticle + id).then(res => {
           console.log(res)
           const converter = new Showdown.Converter()
-          this.html = converter.makeHtml(res.data.content)
+          this.html = converter.makeHtml(res.data.content.trim())
           this.article = res.data
           this.index = this.article.index
           resolve()

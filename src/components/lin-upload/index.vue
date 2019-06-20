@@ -16,8 +16,9 @@ export default {
   },
   methods: {
     getToken () {
-      axios.get('http://upload.yaojunrong.com/getToken').then(res => {
-        this.token = res.data.data
+      this.$axios.get(this.$api.getUploadToken).then(res => {
+        console.log(res.data)
+        this.token = res.data.token
       })
     },
     change (evnet) {

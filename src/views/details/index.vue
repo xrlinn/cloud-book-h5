@@ -24,6 +24,7 @@
 
         <div class="btns"><!--btns start-->
            <Button size="small" @click="handleCollect">加入收藏</Button>
+           <Button size="small" @click="handleLike">喜欢</Button>
            <Button size="small">分享好友</Button>
          </div><!--btns end-->
 
@@ -102,6 +103,22 @@ export default {
         } else {
           Toast({
             message: '您已经收藏过了哦',
+            duration: 1000
+          })
+        }
+      })
+    },
+    handleLike () {
+      this.$axios.post(this.$api.addLike, {bookId: this.bookData._id}).then(res => {
+        console.log(res)
+        if (res.code === 200) {
+          Toast({
+            message: res.msg,
+            duration: 1000
+          })
+        } else {
+          Toast({
+            message: '您已经喜欢过了哦',
             duration: 1000
           })
         }

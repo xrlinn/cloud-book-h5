@@ -30,9 +30,9 @@ export default {
     }
   },
   methods: {
-    getCollection () {
+    getLike () {
       return new Promise(resolve => {
-        this.$axios.get(this.$api.getCollection, {
+        this.$axios.get(this.$api.getLike, {
           params: this.queryData
         })
           .then(res => {
@@ -55,14 +55,14 @@ export default {
         pn: this.queryData.pn + 1,
         size: 4
       }
-      this.getCollection().then(() => {
+      this.getLike().then(() => {
         // this.allLoaded = true
         this.$refs.loadmore.onBottomLoaded()
       })
     }
   },
   created () {
-    this.getCollection()
+    this.getLike()
   }
 }
 </script>

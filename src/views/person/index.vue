@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="header">
-            <router-link class="header-row1" to="login" v-if="!userMsg">
+            <router-link class="header-row1" to="login" v-if="!userData.createTime">
                 <div class="header-left">
                 <h2 class="userName">
                     立即登录
@@ -21,20 +21,20 @@
             <div class="header-row1 user-box" v-else>
                 <div class="header-left">
                 <h2 class="userName">
-                    {{userMsg.usernickname}}
+                    {{userData.usernickname}}
                 </h2>
                 <div class="msg">
-                    {{userMsg.desc || '这个家伙很懒，什么也没写'}}
+                    {{userData.desc || '这个家伙很懒，什么也没写'}}
                 </div>
                 </div>
                 <div class="header-right">
-                    <img :src="userMsg.avatar || useImg" alt="">
+                    <img :src="userData.avatar || useImg" alt="">
                 </div>
             </div>
             <div class="header-row2">
                     <div class="collection-item">
                         <div class="title">
-                            {{userMsg.read || 0}}
+                            {{userData.read || 0}}
                             <span class="little-title">本</span>
                         </div>
                         <div class="msg">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="collection-item">
                         <div class="title">
-                            {{userMsg.collected || 0}}
+                            {{userData.collected || 0}}
                             <span class="little-title">本</span>
                         </div>
                         <div class="msg">
@@ -52,7 +52,7 @@
                     </div>
                     <div class="collection-item">
                         <div class="title">
-                            {{userMsg.like || 0}}
+                            {{userData.like || 0}}
                             <span class="little-title">本</span>
                         </div>
                         <div class="msg">
@@ -91,7 +91,7 @@
                         </svg>
                     </div>
                 </li>
-                <li class="item3">
+                <li class="item3" @click="handleJump3">
                     <div class="left">
                         <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-aihao-"></use>
@@ -105,7 +105,7 @@
                     </div>
                 </li>
             </ul>
-            <div class="btn" v-if="userMsg">
+            <div class="btn" v-if="userData.createTime">
                 <Button type="primary" size="large" @click="logout">退出登录</Button>
             </div>
         </div>
@@ -129,7 +129,7 @@ export default {
     logout () {
       sessionStorage.removeItem('token')
       this.$store.commit('CHANGE_USER_DATA', {})
-      history.go(0)
+    //   history.go(0)
     },
     handleJump1 () {
       this.$router.push({
@@ -140,6 +140,11 @@ export default {
       this.$router.push({
         name: 'collection'
       })
+    },
+    handleJump3 () {
+      this.$router.push({
+        name: 'like'
+      })
     }
   },
   created () {
@@ -149,7 +154,7 @@ export default {
     }
   },
   computed: {
-    userMsg () {
+    userData () {
       return this.$store.state.userData
     }
   }

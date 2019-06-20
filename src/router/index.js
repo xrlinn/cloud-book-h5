@@ -1,24 +1,24 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue' // 引入vue
+import Router from 'vue-router'  // 引入vue路由
 
-Vue.use(Router)
+Vue.use(Router) // 在全局上申明路由
 
-const router = new Router({
+const router = new Router({ // 创建一个router实例在最后面导出
   routes: [
     {
-      path: '/',
-      name: 'layout',
-      redirect: '/index',
-      component: () => import('@/views/layout'),
-      children: [
+      path: '/', // 路由路径
+      name: 'layout', // 路由路径名
+      redirect: '/index', // 重定向到该路径页面
+      component: () => import('@/views/layout'), // 异步加载views文件下的文件组件
+      children: [ // 声明嵌套路由
         {
           path: 'index',
           name: 'index',
-          meta: {
+          meta: { // 路由携带信息标题
             title: '首页'
           },
           component: () => import('@/views/index')
-        },
+        }, 
         {
           path: 'person',
           name: 'person',
@@ -105,6 +105,14 @@ const router = new Router({
             title: '已收藏书单'
           },
           component: () => import('@/views/collection')
+        },
+        {
+          path: '/like',
+          name: 'like',
+          meta: {
+            title: '喜欢的书单'
+          },
+          component: () => import('@/views/like')
         }
       ]
     },
