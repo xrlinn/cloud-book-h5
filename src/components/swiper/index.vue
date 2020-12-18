@@ -27,6 +27,10 @@ export default {
         // some swiper options/callbacks
         // 所有的参数同 swiper 官方 api 参数
         // ...
+        // 可选选项，自动滑动
+        autoplay: true,
+        // 循环滚动
+        loop: true,
         pagination: {
           el: '.swiper-pagination'
         }

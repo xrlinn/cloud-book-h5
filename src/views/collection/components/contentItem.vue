@@ -31,7 +31,6 @@
                 </div>
             </div>
             </router-link>
-            <Button class="btn" type="danger" size="small" @click="handleDelete(options._id)">删除收藏</Button>
         </div>
     </div>
 </template>
@@ -46,43 +45,31 @@ export default {
   props: {
     options: Object
   },
-  methods: {
-    handleDelete (id) {
-      this.$axios.delete(this.$api.deleteCollection + id).then(res => {
-        console.log(res)
-      })
-    }
-  },
   created () {
-    console.log(this.options)
+    // console.log(this.options)
   }
 }
 </script>
 
 <style scoped lang="scss">
 @import '../../../globalCss/px2-rem';
-
 .content-item {
-    margin-top: 40px;
+    // margin-top: 40px;
     .content-row2 {
         margin-top: 20px;
         display: flex;
         justify-content: space-around;
-
         .img-wrap {
             width: px-to-rem(200);
             height: px-to-rem(266);
-
             img{
                 height: 100%;
             }
         }
-
         .article {
             position: relative;
             flex:1;
             margin-left: 18px;
-
             .article-title {
                 color:#333;
                 font-size: 18px;
@@ -92,9 +79,10 @@ export default {
                 margin-top: 10px;
                 line-height: 1.5;
                 display: -webkit-box;
-                -webkit-line-clamp: 2;
-                line-clamp: 2;
-                -webkit-box-orient: vertical;
+                /*! autoprefixer: off */
+                -webkit-box-orient:vertical;
+                -webkit-line-clamp:3;
+                /*! autoprefixer: on */
                 overflow: hidden;
                 font-size: 12px;
                 color: #555;

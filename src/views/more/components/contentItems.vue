@@ -74,9 +74,10 @@ export default {
                 margin-top: 10px;
                 line-height: 1.5;
                 display: -webkit-box;
-                -webkit-line-clamp: 3;
-                line-clamp: 3;
-                -webkit-box-orient: vertical;
+                /*! autoprefixer: off */
+                -webkit-box-orient:vertical;
+                -webkit-line-clamp:3;
+                /*! autoprefixer: on */
                 overflow: hidden;
                 font-size: 12px;
                 color: #555;

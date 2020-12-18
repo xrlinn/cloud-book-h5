@@ -19,10 +19,15 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss">
     .mint-header{
       background: #f5f5f5;
       color: #333333;
+      text-align: center;
+      .mint-header-title{
+      height: 20px;
     }
+    }
+    
 
 </style>

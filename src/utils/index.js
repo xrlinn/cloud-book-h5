@@ -5,7 +5,7 @@ import {Toast} from 'mint-ui'
 const fetch = axios.create({
   // baseURL: 'https://m.yaojunrong.com/'
   // baseURL: process.env.BASE_URL
-  baseURL: 'http://192.168.1.175'
+  baseURL: 'http://39.105.29.83:3000'
 })
 
 fetch.interceptors.request.use((config) => {
